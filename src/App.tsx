@@ -47,7 +47,10 @@ function App() {
     <div className="app">
       <main className="main">
         <div className="header-section">
-          <h1>Aeron Chair Serial Decoder</h1>
+          <div className="title-row">
+            <img src="/favicon.png" alt="Aeron Chair" className="logo" />
+            <h1>Aeron Chair Serial Decoder</h1>
+          </div>
           <p className="subtitle">
             Decode your Herman Miller Aeron chair's serial number to discover its features and specifications.
           </p>

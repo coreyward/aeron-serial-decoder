@@ -196,7 +196,14 @@ function App() {
 
         <footer className="footer">
           <p>
-            This decoder uses information from the Herman Miller Aeron Chairs Price Book (10/25).
+            This decoder uses information from the{' '}
+            <a
+              href="https://www.hermanmiller.com/content/dam/hermanmiller/documents/pricing/PB_AEN.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Herman Miller Aeron Chairs Price Book
+            </a>. Last updated Oct 2025.
             Not affiliated with Herman Miller.
           </p>
         </footer>

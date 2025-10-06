@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { decodeSerial } from './decoder';
 import type { DecodedSerial } from './types';
+import { examples } from './examples';
 import './App.css';
 
 function App() {
@@ -33,6 +34,15 @@ function App() {
     }
   };
 
+  const handleExample = (serial: string) => {
+    setSerialInput(serial);
+    const result = decodeSerial(serial);
+    if (result) {
+      setDecoded(result);
+      setError(null);
+    }
+  };
+
   return (
     <div className="app">
       <main className="main">
@@ -54,12 +64,25 @@ function App() {
               value={serialInput}
               onChange={(e) => setSerialInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="e.g., AER1B23DALPVPRSNASNADC1DVP23101"
+              placeholder="Enter serial number"
               className="serial-input"
             />
             <button onClick={handleDecode} className="decode-button">
               Decode
             </button>
+          </div>
+          <div className="examples">
+            <span className="examples-label">Try it:</span>
+            {examples.map((example, index) => (
+              <button
+                key={index}
+                onClick={() => handleExample(example.serial)}
+                className="example-button"
+                title={example.description}
+              >
+                {example.label}
+              </button>
+            ))}
           </div>
         </div>
 

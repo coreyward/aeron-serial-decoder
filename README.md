@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+# Aeron Chair Serial Decoder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A single-purpose web app that decodes Herman Miller Aeron chair serial numbers to reveal their complete configuration and specifications.
 
-Currently, two official plugins are available:
+![Aeron Chair Serial Decoder](public/favicon.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## What It Does
 
-## React Compiler
+Enter an Aeron chair serial number (found on a label underneath the seat) and the decoder will reveal:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Model** - Work Chair, Stool, ESD variant
+- **Size** - A (Small), B (Medium), or C (Large)
+- **Height Range** - Low, Standard, or High
+- **Tilt** - Standard, Tilt Limiter, or Tilt Limiter + Seat Angle
+- **Arms** - None, Fixed, Height-Adjustable, Pivot, or Fully Adjustable
+- **Back Support** - Basic, PostureFit, Adjustable Lumbar, or PostureFit SL
+- **Finishes** - Frame, Chassis, Base, and Armpad colors
+- **Casters** - Type and floor compatibility
 
-Note: This will impact Vite dev & build performances.
+## How It Works
 
-## Expanding the ESLint configuration
+The decoder parses serial numbers by sequentially extracting configuration codes and validating them against data from the [Herman Miller Aeron Chairs Price Book](https://www.hermanmiller.com/content/dam/hermanmiller/documents/pricing/PB_AEN.pdf) (October 2025).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Serial numbers encode product configurations in a specific order:
+```
+AER1 B 2 3 D A LP VPR SNA SNA DC1 DVP
+│    │ │ │ │ │ │  │   │   │   │   └─ Armpad finish
+│    │ │ │ │ │ │  │   │   │   └───── Casters
+│    │ │ │ │ │ │  │   │   └─────── Base finish
+│    │ │ │ │ │ │  │   └─────────── Chassis finish
+│    │ │ │ │ │ │  └─────────────── Frame finish
+│    │ │ │ │ │ └────────────────── Back support
+│    │ │ │ │ └──────────────────── Armpad upholstery
+│    │ │ │ └────────────────────── Arms type
+│    │ │ └──────────────────────── Tilt
+│    │ └────────────────────────── Height adjustment
+│    └──────────────────────────── Size
+└────────────────────────────────── Model
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The decoder handles:
+- **Variable-length codes** (2-3 characters per field)
+- **Size-dependent validation** (height ranges vary by chair size)
+- **Conditional fields** (armpad finish only appears when arms are present)
+- **Invalid combinations** (not all finish combinations are valid)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech Stack
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React 19** + **TypeScript** - UI framework
+- **Vite** - Build tool and dev server
+- **IBM Plex Sans** - Typography
+- Minimalist design inspired by Vercel's aesthetic
+
+## Development
+
+Built entirely with [Claude Code](https://claude.com/claude-code) by Anthropic.
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server
+pnpm dev
+
+# Build for production
+pnpm build
 ```
+
+## Data Source
+
+Configuration data extracted from the Herman Miller Aeron Chairs Price Book (10/25). Not affiliated with Herman Miller.
+
+## License
+
+MIT

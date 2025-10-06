@@ -1,0 +1,189 @@
+{
+  "modelCodes": {
+    "AER1": "Work Chair",
+    "AER2": "Work Chair, Ready to Assemble",
+    "AERE1": "Aeron ESD Work Chair",
+    "AER7": "Work Stool",
+    "AERE7": "Aeron ESD Work Stool"
+  },
+  "sizes": {
+    "A": "Size A (Small)",
+    "B": "Size B (Medium)",
+    "C": "Size C (Large)"
+  },
+  "heightAdjustment": {
+    "A": {
+      "1": "Low-height range"
+    },
+    "B": {
+      "1": "Low-height range",
+      "2": "Standard-height range",
+      "3": "High-height range"
+    },
+    "C": {
+      "2": "Standard-height range",
+      "3": "High-height range"
+    }
+  },
+  "tilt": {
+    "1": "Standard tilt",
+    "2": "Tilt limiter",
+    "3": "Tilt limiter and seat angle"
+  },
+  "arms": {
+    "N": "No arms",
+    "P": "Fixed arms",
+    "H": "Height-adjustable arms",
+    "A": "Height-adjustable plus pivot arms",
+    "D": "Fully adjustable arms"
+  },
+  "armpadUpholstery": {
+    "N": "No arms",
+    "W": "Nonupholstered armpads",
+    "F": "Leather armpads"
+  },
+  "backSupport": {
+    "SZS": "Basic back support",
+    "ZSS": "PostureFit",
+    "AJ": "Adjustable lumbar support",
+    "ALP": "Adjustable PostureFit SL"
+  },
+  "frameFinish": {
+    "BK": "Black",
+    "G1": "Graphite (CP)",
+    "CRB": "Carbon (CP)",
+    "VPR": "Mineral",
+    "MG1": "Graphite with MicrobeCare™",
+    "MCR": "Carbon with MicrobeCare™",
+    "MVR": "Mineral with MicrobeCare™",
+    "MBL": "Black with MicrobeCare™"
+  },
+  "chassisFinish": {
+    "G1": "Graphite (CP)",
+    "CD": "Polished aluminum",
+    "SNC": "Satin carbon",
+    "SNA": "Satin aluminum",
+    "BLX": "Onyx ultra matte"
+  },
+  "baseFinish": {
+    "G1": "Graphite (CP)",
+    "CD": "Polished aluminum",
+    "DCR": "Dark carbon",
+    "SNC": "Satin carbon",
+    "DVP": "Dark mineral",
+    "SNA": "Satin aluminum",
+    "BK": "Black",
+    "BLX": "Onyx ultra matte"
+  },
+  "casters": {
+    "BB": "2½\" hard caster, black yoke, carpet only",
+    "GF": "2½\" glide, hard floors or carpet",
+    "C7": "2½\" caster, black yoke, hard floors or carpet",
+    "DC1": "2½\" braking caster, black yoke, hard floors or carpet with quiet roll technology",
+    "ESD": "2½\" caster, 65mm ESD"
+  },
+  "armpadFinish": {
+    "BK": "Black",
+    "DVP": "Dark mineral",
+    "DCR": "Dark carbon"
+  },
+  "materialExpressions": {
+    "graphite": {
+      "description": "Refines Aeron's original color scheme for a crisp, sculptural appearance",
+      "validCombinations": {
+        "frame": "G1",
+        "chassis": "G1",
+        "base": "G1"
+      }
+    },
+    "carbon": {
+      "description": "Blurs light and dark, and warm and cool, to harmonize with a variety of environments",
+      "validCombinations": {
+        "frame": "CRB",
+        "chassis": "SNC",
+        "base": ["DCR", "SNC"]
+      }
+    },
+    "mineral": {
+      "description": "Illuminates Aeron's finer points to offer a lightness that borders on translucence",
+      "validCombinations": {
+        "frame": "VPR",
+        "chassis": "SNA",
+        "base": ["DVP", "SNA"]
+      }
+    },
+    "onyx": {
+      "description": "A unified expression of luxury and strength",
+      "validCombinations": {
+        "frame": "BK",
+        "chassis": "BLX",
+        "base": ["BK", "BLX"]
+      }
+    }
+  },
+  "serialNumberFormat": {
+    "description": "Serial numbers encode the product configuration",
+    "structure": [
+      {
+        "position": "1-4 or 1-5",
+        "field": "model",
+        "values": "AER1, AER2, AERE1, AER7, AERE7"
+      },
+      {
+        "position": "next 1",
+        "field": "size",
+        "values": "A, B, C"
+      },
+      {
+        "position": "next 1",
+        "field": "heightAdjustment",
+        "values": "1, 2, 3"
+      },
+      {
+        "position": "next 1",
+        "field": "tilt",
+        "values": "1, 2, 3"
+      },
+      {
+        "position": "next 1",
+        "field": "arms",
+        "values": "N, P, H, A, D"
+      },
+      {
+        "position": "next 1",
+        "field": "armpadUpholstery",
+        "values": "N, W, F"
+      },
+      {
+        "position": "next 2-3",
+        "field": "backSupport",
+        "values": "SZS, ZSS, AJ, ALP"
+      },
+      {
+        "position": "next 2-3",
+        "field": "frameFinish",
+        "values": "BK, G1, CRB, VPR, MG1, MCR, MVR, MBL"
+      },
+      {
+        "position": "next 2-3",
+        "field": "chassisFinish",
+        "values": "G1, CD, SNC, SNA, BLX"
+      },
+      {
+        "position": "next 2-3",
+        "field": "baseFinish",
+        "values": "G1, CD, DCR, SNC, DVP, SNA, BK, BLX"
+      },
+      {
+        "position": "next 2-3",
+        "field": "casters",
+        "values": "BB, GF, C7, DC1, ESD"
+      },
+      {
+        "position": "next 2-3",
+        "field": "armpadFinish",
+        "values": "BK, DVP, DCR"
+      }
+    ]
+  }
+}

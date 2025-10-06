@@ -1,35 +1,182 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { decodeSerial } from './decoder';
+import type { DecodedSerial } from './types';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [serialInput, setSerialInput] = useState('');
+  const [decoded, setDecoded] = useState<DecodedSerial | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleDecode = () => {
+    setError(null);
+
+    if (!serialInput.trim()) {
+      setError('Please enter a serial number');
+      setDecoded(null);
+      return;
+    }
+
+    const result = decodeSerial(serialInput.trim());
+
+    if (!result) {
+      setError('Unable to decode this serial number. Please check that it is entered correctly.');
+      setDecoded(null);
+    } else {
+      setDecoded(result);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleDecode();
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="app">
+      <header className="header">
+        <h1>Aeron Chair Serial Number Decoder</h1>
+        <p className="subtitle">
+          Decode your Herman Miller Aeron chair's serial number to discover its features and specifications
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </header>
+
+      <main className="main">
+        <div className="input-section">
+          <div className="input-group">
+            <label htmlFor="serial-input">
+              Enter Serial Number
+            </label>
+            <input
+              id="serial-input"
+              type="text"
+              value={serialInput}
+              onChange={(e) => setSerialInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="e.g., AER1B23DALPVPRSNASNADC1DVP23101"
+              className="serial-input"
+            />
+          </div>
+          <button onClick={handleDecode} className="decode-button">
+            Decode
+          </button>
+        </div>
+
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
+
+        {decoded && (
+          <div className="results">
+            <h2>Your Aeron Chair Configuration</h2>
+
+            <div className="config-grid">
+              <div className="config-item">
+                <span className="config-label">Model</span>
+                <span className="config-value">{decoded.model.description}</span>
+                <span className="config-code">{decoded.model.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Size</span>
+                <span className="config-value">{decoded.size.description}</span>
+                <span className="config-code">{decoded.size.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Height Range</span>
+                <span className="config-value">{decoded.heightAdjustment.description}</span>
+                <span className="config-code">{decoded.heightAdjustment.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Tilt</span>
+                <span className="config-value">{decoded.tilt.description}</span>
+                <span className="config-code">{decoded.tilt.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Arms</span>
+                <span className="config-value">{decoded.arms.description}</span>
+                <span className="config-code">{decoded.arms.code}</span>
+              </div>
+
+              {decoded.arms.code !== 'N' && (
+                <div className="config-item">
+                  <span className="config-label">Armpad Type</span>
+                  <span className="config-value">{decoded.armpadUpholstery.description}</span>
+                  <span className="config-code">{decoded.armpadUpholstery.code}</span>
+                </div>
+              )}
+
+              {decoded.armpadFinish.code !== 'N/A' && (
+                <div className="config-item">
+                  <span className="config-label">Armpad Finish</span>
+                  <span className="config-value">{decoded.armpadFinish.description}</span>
+                  <span className="config-code">{decoded.armpadFinish.code}</span>
+                </div>
+              )}
+
+              <div className="config-item">
+                <span className="config-label">Back Support</span>
+                <span className="config-value">{decoded.backSupport.description}</span>
+                <span className="config-code">{decoded.backSupport.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Frame Finish</span>
+                <span className="config-value">{decoded.frameFinish.description}</span>
+                <span className="config-code">{decoded.frameFinish.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Chassis Finish</span>
+                <span className="config-value">{decoded.chassisFinish.description}</span>
+                <span className="config-code">{decoded.chassisFinish.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Base Finish</span>
+                <span className="config-value">{decoded.baseFinish.description}</span>
+                <span className="config-code">{decoded.baseFinish.code}</span>
+              </div>
+
+              <div className="config-item">
+                <span className="config-label">Casters</span>
+                <span className="config-value">{decoded.casters.description}</span>
+                <span className="config-code">{decoded.casters.code}</span>
+              </div>
+
+              {decoded.remaining && (
+                <div className="config-item remaining">
+                  <span className="config-label">Additional Info</span>
+                  <span className="config-value">Date/Batch Code</span>
+                  <span className="config-code">{decoded.remaining}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {!decoded && !error && (
+          <div className="placeholder">
+            <p>Enter your Aeron chair's serial number above to see its configuration details.</p>
+            <p className="hint">The serial number is typically found on a label underneath the seat.</p>
+          </div>
+        )}
+      </main>
+
+      <footer className="footer">
+        <p>
+          This decoder uses information from the Herman Miller Aeron Chairs Price Book (10/25).
+          Not affiliated with Herman Miller.
+        </p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;

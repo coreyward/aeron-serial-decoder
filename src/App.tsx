@@ -35,19 +35,19 @@ function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <h1>Aeron Chair Serial Number Decoder</h1>
-        <p className="subtitle">
-          Decode your Herman Miller Aeron chair's serial number to discover its features and specifications
-        </p>
-      </header>
-
       <main className="main">
+        <div className="header-section">
+          <h1>Aeron Chair Serial Decoder</h1>
+          <p className="subtitle">
+            Decode your Herman Miller Aeron chair's serial number to discover its features and specifications.
+          </p>
+        </div>
+
         <div className="input-section">
-          <div className="input-group">
-            <label htmlFor="serial-input">
-              Enter Serial Number
-            </label>
+          <label htmlFor="serial-input">
+            Serial Number
+          </label>
+          <div className="input-row">
             <input
               id="serial-input"
               type="text"
@@ -57,10 +57,10 @@ function App() {
               placeholder="e.g., AER1B23DALPVPRSNASNADC1DVP23101"
               className="serial-input"
             />
+            <button onClick={handleDecode} className="decode-button">
+              Decode
+            </button>
           </div>
-          <button onClick={handleDecode} className="decode-button">
-            Decode
-          </button>
         </div>
 
         {error && (
@@ -167,14 +167,14 @@ function App() {
             <p className="hint">The serial number is typically found on a label underneath the seat.</p>
           </div>
         )}
-      </main>
 
-      <footer className="footer">
-        <p>
-          This decoder uses information from the Herman Miller Aeron Chairs Price Book (10/25).
-          Not affiliated with Herman Miller.
-        </p>
-      </footer>
+        <footer className="footer">
+          <p>
+            This decoder uses information from the Herman Miller Aeron Chairs Price Book (10/25).
+            Not affiliated with Herman Miller.
+          </p>
+        </footer>
+      </main>
     </div>
   );
 }
